@@ -26,12 +26,10 @@ SeqFile.prototype.readSync = function() {
 }
 
 SeqFile.prototype.save = function(n) {
-  console.error('save', n)
   if (n && n > this.seq)
     this.seq = n
 
   if (!this.saving) {
-    console.error('now do the saving')
     this.saving = true
     var t = this.file + '.TMP'
     var data = this.seq + '\n'
@@ -40,7 +38,6 @@ SeqFile.prototype.save = function(n) {
 }
 
 SeqFile.prototype.onSave = function(er) {
-  console.error('onSave!', er)
   var cb = this.onFinish.bind(this)
   if (!er)
     fs.rename(this.file + '.TMP', this.file, cb)
