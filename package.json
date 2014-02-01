@@ -1,0 +1,31 @@
+{
+  "name": "seq-file",
+  "version": "0.0.0",
+  "description": "A module for storing the ever-increasing sequence files when following couchdb _changes feeds.",
+  "main": "seq-file.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tap": "~0.4.8"
+  },
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/isaacs/seq-file"
+  },
+  "keywords": [
+    "changes",
+    "sequence",
+    "file"
+  ],
+  "author": "Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isaacs/seq-file/issues"
+  },
+  "homepage": "https://github.com/isaacs/seq-file"
+}
