@@ -52,8 +52,12 @@ SeqFile.prototype.onFinish = function() {
 SeqFile.prototype.onRead = function(cb, er, data) {
   if (er && er.code === 'ENOENT')
     data = 0;
-  else if (er)
-    return cb(er)
+  else if (er) {
+    if (cb)
+      return cb(er)
+    else
+      throw er
+  }
 
   if (data === undefined)
     data = null
