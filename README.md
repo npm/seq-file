@@ -26,3 +26,16 @@ s.save(21)
 s.save(34)
 throw 'pwn' // file now contains "21", not ""
 ```
+
+## OPTIONS
+
+* **frequency:** modify how frequently a sequence number is saved.
+
+```javascript
+var SF = require('seq-file', {
+  frequency: 4
+})
+var s = new SF('sequence.seq')
+s.save(11) // this won't save (we only save every 4 increments).
+s.save(12) // this will totally save.
+```
