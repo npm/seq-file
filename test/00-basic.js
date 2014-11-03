@@ -46,3 +46,19 @@ test('bump a few', function(t) {
     }, 100)
   }, 100)
 })
+
+test('it should allow save frequency to be changed', function(t) {
+  var s = new SeqFile(sf, {
+   frequency: 4
+  })
+  s.save(11)
+  s.save(12)
+  s.save(13)
+  setTimeout(function() {
+    var q = s.readSync()
+    t.equal(q, 12)
+    t.equal(s.seq, 13)
+    t.notOk(s.saving)
+    t.end()
+  }, 100)
+})

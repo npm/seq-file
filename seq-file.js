@@ -2,13 +2,16 @@ var fs = require('fs')
 
 module.exports = SeqFile
 
-function SeqFile(file) {
+function SeqFile(file, opts) {
   if (!file)
     throw new TypeError('need to specify a file')
+
+  opts = opts || {}
 
   this.file = file
   this.saving = false
   this.seq = 0
+  this.frequency = opts.frequency || 1
 }
 
 SeqFile.prototype.read = function(cb) {
@@ -28,6 +31,9 @@ SeqFile.prototype.readSync = function() {
 SeqFile.prototype.save = function(n) {
   if (n && n > this.seq)
     this.seq = n
+
+   // only save occasionally to cut down on I/O.
+  if ((n || 0) % this.frequency !== 0) return
 
   if (!this.saving) {
     this.saving = true
