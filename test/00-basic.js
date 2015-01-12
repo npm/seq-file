@@ -4,22 +4,32 @@ var SeqFile = require('../seq-file.js')
 
 var sf = __dirname + '/test.seq'
 var fs = require('fs')
-fs.writeFileSync(sf, '10\n', 'ascii')
+var rimraf = require('rimraf')
 
-test('read', function(t) {
+rimraf.sync(sf)
+
+test('touch', function(t) {
   var s = new SeqFile(sf)
+
+  // the .seq file is created
+  // if it doesn't exist.
   s.read(function(er, data) {
-    if (er) throw er;
-    t.equal(data, 10)
-    t.equal(s.seq, 10)
-    t.end()
+    t.equal(er, null)
+    t.equal(data, 0)
+    t.equal(s.seq, 0)
+
+    // set sequence to 10
+    // for read tests.
+    s.save(10)
+    setTimeout(function() {
+      t.end()
+    }, 100)
   })
 })
 
 test('read', function(t) {
   var s = new SeqFile(sf)
   s.read(function(er, data) {
-    if (er) throw er;
     t.equal(data, 10)
     t.equal(s.seq, 10)
     t.end()

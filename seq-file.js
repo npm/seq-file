@@ -1,4 +1,5 @@
 var fs = require('fs')
+var touch = require('touch')
 
 module.exports = SeqFile
 
@@ -15,7 +16,11 @@ function SeqFile(file, opts) {
 }
 
 SeqFile.prototype.read = function(cb) {
-  fs.readFile(this.file, 'ascii', this.onRead.bind(this, cb))
+  var _this = this
+
+  touch(this.file, function() {
+    fs.readFile(_this.file, 'ascii', _this.onRead.bind(_this, cb))
+  });
 }
 
 SeqFile.prototype.readSync = function() {
