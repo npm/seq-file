@@ -26,6 +26,7 @@ SeqFile.prototype.read = function(cb) {
 SeqFile.prototype.readSync = function() {
   var er, data
   try {
+    touch.sync(this.file)
     data = fs.readFileSync(this.file, 'ascii')
   } catch (e) {
     er = e
