@@ -35,11 +35,14 @@ SeqFile.prototype.readSync = function() {
 }
 
 SeqFile.prototype.save = function(n) {
+  var skip
   if (n && n > this.seq)
     this.seq = n
 
-   // only save occasionally to cut down on I/O.
-  if ((n || 0) % this.frequency !== 0) return
+  skip = (n || 0) % this.frequency
+
+  // only save occasionally to cut down on I/O.
+  if (!isNaN(skip) && skip !== 0) return
 
   if (!this.saving) {
     this.saving = true
