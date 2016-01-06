@@ -35,11 +35,14 @@ SeqFile.prototype.readSync = function() {
 }
 
 SeqFile.prototype.save = function(n) {
+  var skip
   if (n && n > this.seq)
     this.seq = n
 
-   // only save occasionally to cut down on I/O.
-  if ((n || 0) % this.frequency !== 0) return
+  skip = (n || 0) % this.frequency
+
+  // only save occasionally to cut down on I/O.
+  if (!isNaN(skip) && skip !== 0) return
 
   if (!this.saving) {
     this.saving = true
@@ -62,6 +65,7 @@ SeqFile.prototype.onFinish = function() {
 }
 
 SeqFile.prototype.onRead = function(cb, er, data) {
+
   if (er && er.code === 'ENOENT')
     data = 0;
   else if (er) {
@@ -72,13 +76,21 @@ SeqFile.prototype.onRead = function(cb, er, data) {
   }
 
   if (data === undefined)
-    data = null
+    data = 0
 
-  if (!+data && +data !== 0)
-    return cb(new Error('invalid data in seqFile'))
+  if (data.length > 1) {
+    // remove delimiter
+    data = (data + '').trim()
+    if (/^\d+$/.test(data)) 
+      data = + data
+    else
+      // compare strings
+      this.seq = this.seq + ''
+  } else {
+    data = 0
+  }
 
-  data = +data
-  if (!er && data > this.seq)
+  if (data > this.seq) 
     this.seq = data
 
   if (cb)
