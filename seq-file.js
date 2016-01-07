@@ -36,8 +36,12 @@ SeqFile.prototype.readSync = function() {
 
 SeqFile.prototype.save = function(n) {
   var skip
-  if (n && n > this.seq)
-    this.seq = n
+  if (n){
+    if(n > this.seq)
+      this.seq = n
+    else if(this.seq === 0 && typeof n === 'string')
+      this.seq = n
+  }
 
   skip = (n || 0) % this.frequency
 
