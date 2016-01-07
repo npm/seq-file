@@ -1,6 +1,6 @@
 {
   "name": "seq-file",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "A module for storing the ever-increasing sequence files when following couchdb _changes feeds.",
   "main": "seq-file.js",
   "directories": {
