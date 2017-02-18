@@ -10,7 +10,7 @@
     "touch": "0.0.3"
   },
   "devDependencies": {
-    "rimraf": "^2.2.8",
+    "rimraf": "^2.6.0",
     "tap": "^1.2.0"
   },
   "scripts": {
