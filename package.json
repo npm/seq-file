@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "rimraf": "^2.2.8",
-    "tap": "^1.2.0"
+    "tap": "^10.2.2"
   },
   "scripts": {
     "test": "tap test/*.js"
