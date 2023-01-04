@@ -13,6 +13,7 @@ function SeqFile(file, opts) {
   this.saving = false
   this.seq = 0
   this.frequency = opts.frequency || 1
+  this.delimiter = opts.delimiter || '-'
 }
 
 SeqFile.prototype.read = function(cb) {
@@ -34,10 +35,14 @@ SeqFile.prototype.readSync = function() {
   return this.onRead(null, er, data)
 }
 
+SeqFile.prototype.isSeqGreater = function(newSeq, oldSeq) {
+  return Number((newSeq + '').split(this.delimiter, 1)) > Number((oldSeq + '').split(this.delimiter, 1))
+}
+
 SeqFile.prototype.save = function(n) {
   var skip
   if (n){
-    if(n > this.seq)
+    if(this.isSeqGreater(n, this.seq))
       this.seq = n
     else if(this.seq === 0 && typeof n === 'string')
       this.seq = n
