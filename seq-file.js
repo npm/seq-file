@@ -73,6 +73,23 @@ SeqFile.prototype.onFinish = function() {
   this.saving = false
 }
 
+SeqFile.prototype.saveSync = function(n) {
+  if (n){
+    this.seq = n
+  }
+  try {
+    this.saving = true
+    var t = this.file + '.TMP'
+    var data = this.seq + '\n'
+    fs.writeFileSync(t, data)
+    fs.renameSync(this.file + '.TMP', this.file)
+  } catch (e) {
+      console.log(e);
+      fs.unlinkSync(this.file + '.TMP')
+  }
+  this.saving = false
+}
+
 SeqFile.prototype.onRead = function(cb, er, data) {
 
   if (er && er.code === 'ENOENT')
