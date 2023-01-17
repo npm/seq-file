@@ -66,8 +66,8 @@ SeqFile.prototype.onFinish = function () {
   this.saving = false
 }
 
-SeqFile.prototype.saveSync = function(n) {
-  if (n){
+SeqFile.prototype.saveSync = function (n) {
+  if (n) {
     this.seq = n
   }
   try {
@@ -77,21 +77,15 @@ SeqFile.prototype.saveSync = function(n) {
     fs.writeFileSync(t, data)
     fs.renameSync(this.file + '.TMP', this.file)
   } catch (e) {
-      console.log(e);
-      fs.unlinkSync(this.file + '.TMP')
+    console.log(e)
+    fs.unlinkSync(this.file + '.TMP')
   }
   this.saving = false
 }
 
-SeqFile.prototype.onRead = function(cb, er, data) {
-
-  if (er && er.code === 'ENOENT')
-    data = 0;
-  else if (er) {
-    if (cb)
-      return cb(er)
-    else
-      throw er
+SeqFile.prototype.onRead = function (cb, er, data) {
+  if (er && er.code === 'ENOENT') { data = 0 } else if (er) {
+    if (cb) { return cb(er) } else { throw er }
   }
 
   if (data === undefined) { data = 0 }
