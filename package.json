@@ -11,9 +11,12 @@
   },
   "devDependencies": {
     "rimraf": "^2.2.8",
+    "standard": "^10.0.2",
     "tap": "^1.2.0"
   },
   "scripts": {
+    "lint": "standard",
+    "lint:fix": "standard --fix",
     "test": "tap test/*.js"
   },
   "repository": {
