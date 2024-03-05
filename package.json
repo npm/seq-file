@@ -7,10 +7,10 @@
     "test": "test"
   },
   "dependencies": {
-    "touch": "3.1.0"
+    "touch": "^3.1.0"
   },
   "devDependencies": {
-    "rimraf": "^2.2.8",
+    "rimraf": "^3.0.2",
     "standard": "^10.0.3",
     "tap": "^1.2.0"
   },
