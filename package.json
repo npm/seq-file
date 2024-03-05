@@ -17,10 +17,7 @@
   "scripts": {
     "lint": "standard",
     "lint:fix": "standard --fix",
-    "test": "tap"
-  },
-  "tap": {
-    "check-coverage": false
+    "test": "nyc tap"
   },
   "repository": {
     "type": "git",
