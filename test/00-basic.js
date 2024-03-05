@@ -50,7 +50,7 @@ test('bump a few', function (t) {
     s.save()
     setTimeout(function () {
       const q2 = s.readSync()
-      t.equal(q2, q2)
+      t.equal(q2, parseInt(q2))
       t.equal(s.seq, 13)
       t.end()
     }, 100)
