@@ -1,107 +1,138 @@
-var fs = require('fs')
-var touch = require('touch')
+var fs = require("fs");
+var touch = require("touch");
 
-module.exports = SeqFile
+module.exports = SeqFile;
 
-function SeqFile (file, opts) {
-  if (!file) { throw new TypeError('need to specify a file') }
+function SeqFile(file, opts) {
+  if (!file) {
+    throw new TypeError("need to specify a file");
+  }
 
-  opts = opts || {}
+  opts = opts || {};
 
-  this.file = file
-  this.saving = false
-  this.seq = 0
-  this.frequency = opts.frequency || 1
-  this.delimiter = opts.delimiter || '-'
+  this.file = file;
+  this.saving = false;
+  this.seq = 0;
+  this.frequency = opts.frequency || 1;
+  this.delimiter = opts.delimiter || "-";
 }
 
 SeqFile.prototype.read = function (cb) {
-  var _this = this
+  var _this = this;
 
   touch(this.file, function () {
-    fs.readFile(_this.file, 'ascii', _this.onRead.bind(_this, cb))
-  })
-}
+    fs.readFile(_this.file, "ascii", _this.onRead.bind(_this, cb));
+  });
+};
 
 SeqFile.prototype.readSync = function () {
-  var er, data
+  var er, data;
   try {
-    touch.sync(this.file)
-    data = fs.readFileSync(this.file, 'ascii')
+    touch.sync(this.file);
+    data = fs.readFileSync(this.file, "ascii");
   } catch (e) {
-    er = e
+    er = e;
   }
-  return this.onRead(null, er, data)
-}
+  return this.onRead(null, er, data);
+};
 
 SeqFile.prototype.isSeqGreater = function (newSeq, oldSeq) {
-  return Number((newSeq + '').split(this.delimiter, 1)) > Number((oldSeq + '').split(this.delimiter, 1))
-}
+  return (
+    Number((newSeq + "").split(this.delimiter, 1)) >
+    Number((oldSeq + "").split(this.delimiter, 1))
+  );
+};
 
 SeqFile.prototype.save = function (n) {
-  var skip
+  var skip;
   if (n) {
-    if (this.isSeqGreater(n, this.seq)) { this.seq = n } else if (this.seq === 0 && typeof n === 'string') { this.seq = n }
+    if (this.isSeqGreater(n, this.seq)) {
+      this.seq = n;
+    } else if (this.seq === 0 && typeof n === "string") {
+      this.seq = n;
+    }
   }
 
-  skip = (n || 0) % this.frequency
+  skip = (n || 0) % this.frequency;
 
   // only save occasionally to cut down on I/O.
-  if (!isNaN(skip) && skip !== 0) return
+  if (!isNaN(skip) && skip !== 0) return;
 
   if (!this.saving) {
-    this.saving = true
-    var t = this.file + '.TMP'
-    var data = this.seq + '\n'
-    fs.writeFile(t, data, this.onSave.bind(this))
+    this.saving = true;
+    var t = this.file + ".TMP";
+    var data = this.seq + "\n";
+    fs.writeFile(t, data, this.onSave.bind(this));
   }
-}
+};
 
 SeqFile.prototype.onSave = function (er) {
-  var cb = this.onFinish.bind(this)
-  if (!er) { fs.rename(this.file + '.TMP', this.file, cb) } else { fs.unlink(this.file + '.TMP', cb) }
-}
+  var cb = this.onFinish.bind(this);
+  if (!er) {
+    fs.rename(this.file + ".TMP", this.file, cb);
+  } else {
+    fs.unlink(this.file + ".TMP", cb);
+  }
+};
 
 SeqFile.prototype.onFinish = function () {
-  this.saving = false
-}
+  this.saving = false;
+};
 
 SeqFile.prototype.saveSync = function (n) {
   if (n) {
-    this.seq = n
+    this.seq = n;
   }
   try {
-    this.saving = true
-    var t = this.file + '.TMP'
-    var data = this.seq + '\n'
-    fs.writeFileSync(t, data)
-    fs.renameSync(this.file + '.TMP', this.file)
+    this.saving = true;
+    var t = this.file + ".TMP";
+    var data = this.seq + "\n";
+    fs.writeFileSync(t, data);
+    fs.renameSync(this.file + ".TMP", this.file);
   } catch (e) {
-    console.log(e)
-    fs.unlinkSync(this.file + '.TMP')
+    console.log(e);
+    fs.unlinkSync(this.file + ".TMP");
   }
-  this.saving = false
-}
+  this.saving = false;
+};
 
 SeqFile.prototype.onRead = function (cb, er, data) {
-  if (er && er.code === 'ENOENT') { data = 0 } else if (er) {
-    if (cb) { return cb(er) } else { throw er }
+  if (er && er.code === "ENOENT") {
+    data = 0;
+  } else if (er) {
+    if (cb) {
+      return cb(er);
+    } else {
+      throw er;
+    }
   }
 
-  if (data === undefined) { data = 0 }
+  if (data === undefined) {
+    data = 0;
+  }
 
   if (data.length > 1) {
     // remove delimiter
-    data = (data + '').trim()
-    if (/^\d+$/.test(data)) { data = +data } else {
+    data = (data + "").trim();
+    if (/^\d+$/.test(data)) {
+      data = +data;
+    } else {
       // compare strings
-      this.seq = this.seq + ''
+      this.seq = this.seq + "";
     }
   } else {
-    data = 0
+    data = 0;
   }
 
-  if (data > this.seq) { this.seq = data }
+  if (data > this.seq) {
+    this.seq = data;
+  }
 
-  if (cb) { cb(er, data) } else if (er) { throw er } else { return data }
-}
+  if (cb) {
+    cb(er, data);
+  } else if (er) {
+    throw er;
+  } else {
+    return data;
+  }
+};

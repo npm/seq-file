@@ -1,18 +1,18 @@
-var test = require('tap').test
+var test = require("tap").test;
 
-var SeqFile = require('../seq-file.js')
+var SeqFile = require("../seq-file.js");
 
-var fs = require('fs')
-var path = require('path')
-var sf = path.join(__dirname, '/test.seq')
+var fs = require("fs");
+var path = require("path");
+var sf = path.join(__dirname, "/test.seq");
 
-test('saves non number sequences even if they start with 0', function (t) {
-  var s = new SeqFile(sf)
+test("saves non number sequences even if they start with 0", function (t) {
+  var s = new SeqFile(sf);
   // number zero cannot be compared to strings that start with "0"
-  s.seq = 0
-  s.save('0-00')
+  s.seq = 0;
+  s.save("0-00");
   setTimeout(function () {
-    t.equals(fs.readFileSync(sf) + '', fs.readFileSync(sf) + '')
-    t.end()
-  }, 50)
-})
+    t.equals(fs.readFileSync(sf) + "", fs.readFileSync(sf) + "");
+    t.end();
+  }, 50);
+});
