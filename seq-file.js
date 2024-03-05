@@ -44,7 +44,7 @@ SeqFile.prototype.isSeqGreater = function (newSeq, oldSeq) {
 };
 
 SeqFile.prototype.save = function (n) {
-  var skip;
+  let skip = (n || 0) % this.frequency; 
   if (n) {
     if (this.isSeqGreater(n, this.seq)) {
       this.seq = n;
