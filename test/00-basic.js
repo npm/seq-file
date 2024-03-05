@@ -44,13 +44,13 @@ test('bump a few', function (t) {
   s.save(13)
   setTimeout(function () {
     const q = s.readSync()
-    t.equal(q, 11) 
+    t.equal(q, 11)
     t.equal(s.seq, 13)
     t.notOk(s.saving)
     s.save()
     setTimeout(function () {
-      const q2 = s.readSync() 
-      t.equal(q2, 13) 
+      const q2 = s.readSync()
+      t.equal(q2, 13)
       t.equal(s.seq, 13)
       t.end()
     }, 100)
