@@ -1,15 +1,15 @@
-var fs = require("fs");
-var path = require("path");
-var sf = path.join(__dirname, "/test.seq");
-var test = require("tap").test;
+const fs = require('fs')
+const path = require('path')
+const sf = path.join(__dirname, '/test.seq')
+const test = require('tap').test
 
-test("cleanup", function (t) {
+test('cleanup', function (t) {
   try {
-    fs.unlinkSync(sf);
+    fs.unlinkSync(sf)
   } catch (er) {}
   try {
-    fs.unlinkSync(sf + ".TMP");
+    fs.unlinkSync(sf + '.TMP')
   } catch (er) {}
-  t.pass("ok");
-  t.end();
-});
+  t.pass('ok')
+  t.end()
+})
