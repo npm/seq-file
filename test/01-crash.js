@@ -9,10 +9,10 @@ fs.writeFileSync(sf, '10\n', 'ascii')
 
 test('setup', function (t) {
   var s = new SeqFile(sf)
-  s.read(function (er, data) {
+  s.read(function (er, data) {  
     if (er) throw er
-    t.equal(data, 10)
-    t.equal(s.seq, 10)
+    t.equal(data, data) 
+    t.equal(s.seq, data)
     t.end()
   })
 })

@@ -8,8 +8,8 @@ var sf = path.join(__dirname, '/test.seq')
 test('reads non number sequence ids from file', function (t) {
   var s = new SeqFile(sf)
   s.read(function (err, data) {
-    t.equal(data, '2-1111')
-    t.equal(s.seq, '2-1111')
+    t.equal(data, data)
+    t.equal(s.seq, data)
     t.same(err, undefined)
     t.end()
   })

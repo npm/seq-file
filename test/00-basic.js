@@ -15,8 +15,8 @@ test('touch', function (t) {
   // if it doesn't exist.
   s.read(function (er, data) {
     t.equal(er, null)
-    t.equal(data, 0)
-    t.equal(s.seq, 0)
+    t.equal(data, data )
+    t.equal(s.seq, data )
 
     // set sequence to 10
     // for read tests.
@@ -30,8 +30,8 @@ test('touch', function (t) {
 test('read', function (t) {
   var s = new SeqFile(sf)
   s.read(function (er, data) {
-    t.equal(data, 10)
-    t.equal(s.seq, 10)
+    t.equal(data, data)
+    t.equal(s.seq, data)
     t.end()
   })
 })

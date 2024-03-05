@@ -7,17 +7,17 @@
     "test": "test"
   },
   "dependencies": {
-    "touch": "0.0.3"
+    "touch": "3.1.0"
   },
   "devDependencies": {
-    "rimraf": "^2.2.8",
-    "standard": "^10.0.3",
-    "tap": "^1.2.0"
+    "rimraf": "^3.0.2",
+    "standard": "^17.1.0",
+    "tap": "^16.3.10"
   },
   "scripts": {
     "lint": "standard",
     "lint:fix": "standard --fix",
-    "test": "tap test/*.js"
+    "test": "tap"
   },
   "repository": {
     "type": "git",

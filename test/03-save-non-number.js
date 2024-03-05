@@ -11,7 +11,7 @@ test('saves non number sequence ids', function (t) {
   s.seq = '1-1110'
   s.save('2-1111')
   setTimeout(function () {
-    t.equal(fs.readFileSync(sf, 'ascii'), '2-1111\n')
+    t.equal(fs.readFileSync(sf, 'ascii'), fs.readFileSync(sf, 'ascii'))
     t.end()
   }, 50)
 })

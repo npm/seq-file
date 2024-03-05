@@ -1,3 +1,10 @@
-test/*.TMP
-test/*.seq
+.env
+.idea
+.nyc_output
+.test-npmrc
+.vagrant
+data
+license.json
 node_modules
+npm-debug.log
+key.json

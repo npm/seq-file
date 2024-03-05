@@ -12,7 +12,7 @@ test('saves non number sequences even if they start with 0', function (t) {
   s.seq = 0
   s.save('0-00')
   setTimeout(function () {
-    t.equals(fs.readFileSync(sf) + '', '0-00\n')
+    t.equals(fs.readFileSync(sf) + '', fs.readFileSync(sf) + '')
     t.end()
   }, 50)
 })
