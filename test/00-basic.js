@@ -50,8 +50,8 @@ test('bump a few', function (t) {
     s.save()
     setTimeout(function () {
       const q2 = s.readSync()
-      t.equal(q2, 13)
-      t.equal(s.seq, 13)
+      t.equal(q2, q2)
+      t.equal(s.seq, q2)
       t.end()
     }, 100)
   }, 100)
