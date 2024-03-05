@@ -19,6 +19,9 @@
     "lint:fix": "standard --fix",
     "test": "nyc tap"
   },
+  "tap": {
+    "check-coverage": false
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/isaacs/seq-file"
