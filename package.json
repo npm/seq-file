@@ -12,12 +12,12 @@
   "devDependencies": {
     "rimraf": "^3.0.2",
     "standard": "^17.1.0",
-    "tap": "^12.7.0"
+    "tap": "^16.3.0"
   },
   "scripts": {
     "lint": "standard",
     "lint:fix": "standard --fix",
-    "test": "tap test/*.js"
+    "test": "tap test/*.js --no-coverage --j 1"
   },
   "repository": {
     "type": "git",

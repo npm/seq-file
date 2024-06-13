@@ -1,3 +1,4 @@
 test/*.TMP
 test/*.seq
 node_modules
+.nyc_output
