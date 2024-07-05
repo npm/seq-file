@@ -12,7 +12,7 @@
   "devDependencies": {
     "rimraf": "^3.0.2",
     "standard": "^17.1.0",
-    "tap": "^16.3.0"
+    "tap": "^20.0.3"
   },
   "scripts": {
     "lint": "standard",
