@@ -17,7 +17,7 @@
   "scripts": {
     "lint": "standard",
     "lint:fix": "standard --fix",
-    "test": "tap test/*.js --no-coverage --j 1"
+    "test": "tap test/*.js --jobs=1 --disable-coverage"
   },
   "repository": {
     "type": "git",
