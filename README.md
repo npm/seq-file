@@ -5,7 +5,7 @@ couchdb _changes feeds.
 
 Saves the sequence ID in an atomic way, so that it doesn't clobber the
 file if it crashes mid-save.  Only does a single save at a time, so
-you can bang on it repeatedy, and it'll avoid doing unnecessary file
+you can bang on it repeatedly, and it'll avoid doing unnecessary file
 IO or weird cases where two writes cross paths in odd ways.
 
 ## USAGE
